@@ -1,0 +1,36 @@
+services:
+  web:
+    image: odoo:17.0
+    container_name: one-acre-fund
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    volumes:
+      - one-acre-fund-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      # - ./custom-addons:/mnt/extra-addons
+      - /etc/localtime:/etc/localtime
+    environment:
+      - PASSWORD_FILE=/run/secrets/postgresql_password
+      - HOST=db
+    secrets:
+      - postgresql_password
+  db:
+    image: postgres:15
+    container_name: one-acre-fund-db
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgresql_password
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - one-acre-fund-db-data:/var/lib/postgresql/data/pgdata
+    secrets:
+      - postgresql_password
+volumes:
+  one-acre-fund-web-data:
+  one-acre-fund-db-data:
+secrets:
+  postgresql_password:
+    file: odoo_pg_pass
