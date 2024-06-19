@@ -1,0 +1,3 @@
+[submodule "oaf-custom-addons"]
+	path = oaf-custom-addons
+	url = git@github.com:obabawale/oaf-custom-addons.git

@@ -9,7 +9,7 @@ services:
     volumes:
       - one-acre-fund-web-data:/var/lib/odoo
       - ./config:/etc/odoo
-      # - ./custom-addons:/mnt/extra-addons
+      - ./oaf-custom-addons:/mnt/extra-addons
       - /etc/localtime:/etc/localtime
     environment:
       - PASSWORD_FILE=/run/secrets/postgresql_password
